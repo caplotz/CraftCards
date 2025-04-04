@@ -1,24 +1,128 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-<title>CraftCards</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CraftCards</title>
 
+  <!-- Partie 1 : Ajouter le script PayPal -->
+  <script src="https://www.paypalobjects.com/ncp/cart/cart.js" data-merchant-id="BUNHKTHBQYEB8"></script>
+
+  <style>
+    /* Style global : fond noir et texte blanc */
+    body {
+      background-color: black; /* Fond noir */
+      color: white; /* Texte blanc */
+      font-family: Arial, sans-serif; /* Police Arial */
+      padding: 20px; /* Ajout d'un peu d'espace autour du contenu */
+      margin: 0;
+      text-align: center; /* Centrer tout le texte */
+      position: relative; /* Pour positionner les flocons de neige */
+      overflow-x: hidden; /* Empêche le défilement horizontal */
+      height: 100%; /* Hauteur de la page pour permettre le défilement */
+    }
+
+    /* S'assurer que le h1 a un peu d'espace */
+    h1 {
+      margin-top: 50px; /* Marge en haut pour qu'il y ait un peu d'espace avant le titre */
+      margin-bottom: 30px; /* Ajouter un espace sous le titre */
+    }
+
+    /* Effet de neige */
+    .snowflake {
+      position: absolute;
+      top: -10px; /* Commence juste au-dessus de l'écran */
+      background-color: white;
+      border-radius: 50%;
+      width: 10px;
+      height: 10px;
+      opacity: 0.8;
+      animation: fall linear infinite;
+    }
+
+    /* Animation de la neige */
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg); /* 100vh pour laisser tomber les flocons jusqu'en bas de l'écran */
+      }
+    }
+
+    /* Conteneur de la neige */
+    .snow-container {
+      position: fixed; /* Fixe la neige en arrière-plan */
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none; /* Permet aux flocons de ne pas interférer avec l'interaction de la page */
+      z-index: -1; /* Met la neige derrière tout le contenu */
+    }
+
+    /* Styles supplémentaires pour le texte */
+    .paypal-button-container {
+      margin-top: 20px;
+    }
+
+  </style>
 </head>
-<script src="https://www.paypalobjects.com/ncp/cart/cart.js" data-merchant-id="BUNHKTHBQYEB8"></script>
-<body style="background-color:white;">
+<body>
 
+  <!-- Affichage du texte -->
+  <h1>Bienvenue sur CraftCards</h1>
 
+  <div class="paypal-button-container">
+    <!-- Bouton Afficher le panier -->
+    <paypal-cart-button data-id="pp-view-cart"></paypal-cart-button>
+    <script>
+      cartPaypal.Cart({ id: "pp-view-cart" });
+    </script>
+  </div>
 
-<paypal-cart-button data-id="pp-view-cart"></paypal-cart-button>
-<script>
-  cartPaypal.Cart({ id: "pp-view-cart" })
-</script>
+  <div class="paypal-button-container">
+    <!-- Bouton Ajouter au panier -->
+    <paypal-add-to-cart-button data-id="ANW5B4EFXRMHA"></paypal-add-to-cart-button>
+    <script>
+      cartPaypal.AddToCart({ id: "ANW5B4EFXRMHA" });
+    </script>
+  </div>
 
-<paypal-add-to-cart-button data-id="ANW5B4EFXRMHA"></paypal-add-to-cart-button>
-<script>
-  cartPaypal.AddToCart({ id: "ANW5B4EFXRMHA" })
-</script>
+  <!-- Conteneur pour la neige -->
+  <div class="snow-container" id="snow-container"></div>
+
+  <!-- Script pour ajouter dynamiquement 20 flocons de neige -->
+  <script>
+    // Fonction pour créer un flocon de neige
+    function createSnowflake() {
+      const snowflake = document.createElement('div');
+      snowflake.classList.add('snowflake');
+      document.getElementById('snow-container').appendChild(snowflake);
+
+      // Position aléatoire de gauche
+      const leftPosition = Math.random() * 100; // entre 0% et 100%
+      snowflake.style.left = `${leftPosition}%`;
+
+      // Durée d'animation aléatoire entre 8 et 15 secondes
+      const animationDuration = Math.random() * 7 + 8; // entre 8s et 15s
+      snowflake.style.animationDuration = `${animationDuration}s`;
+
+      // Délais d'animation aléatoires pour chaque flocon
+      const animationDelay = Math.random() * 5; // entre 0s et 5s
+      snowflake.style.animationDelay = `${animationDelay}s`;
+    }
+
+    // Créer 20 flocons
+    for (let i = 0; i < 20; i++) {
+      createSnowflake();
+    }
+
+    // Attendre 5 secondes avant de faire défiler vers le haut
+    setTimeout(function() {
+      window.scrollTo(0, 0); // Défiler vers le haut après 5 secondes
+    },3000);
+  </script>
 
 </body>
 </html>
-
