@@ -91,6 +91,38 @@
 
   <!-- Conteneur pour la neige -->
   <div class="snow-container" id="snow-container"></div>
+  
+  <h1>Voulez vous recevoir <font color="#00FF00">3 Paquets de 16 cartes</font>  GRATUITEMENT?</h1>
+  
+                  <h4>- <font color="#DF990C">33.5% moins cher que le prix normal</font></h4>
+                          <h4>- <font color="#00FF00">3 Paquet de 16 cartes par 30 jours.</font></h4>
+  <h4>- Un abonnement annulable a tout moment.</h4>
+    <h4>- Un abonnement 100% de confiance.</h4>
+    <h4>- Paiement facile. Abonnement facile.</h4>
+  
+  <div id="paypal-button-container-P-768851745C818241AM7YFD7Y"></div>
+<script src="https://www.paypal.com/sdk/js?client-id=Ad8di_Q0vFfAIej2jeNkdCUCjVPTu68mbfOvQ7ql59KNS_XIn5orqKfgVrM3fyHdD5VEyFBXbXBRIwP4&vault=true&intent=subscription" data-sdk-integration-source="button-factory">
+
+</script>
+<script>
+  paypal.Buttons({
+      style: {
+          shape: 'pill',
+          color: 'blue',
+          layout: 'vertical',
+          label: 'subscribe'
+      },
+      createSubscription: function(data, actions) {
+        return actions.subscription.create({
+          /* Creates the subscription */
+          plan_id: 'P-768851745C818241AM7YFD7Y'
+        });
+      },
+      onApprove: function(data, actions) {
+        alert(data.subscriptionID); // You can add optional success message for the subscriber here
+      }
+  }).render('#paypal-button-container-P-768851745C818241AM7YFD7Y'); // Renders the PayPal button
+</script>
 
   <!-- Script pour ajouter dynamiquement 20 flocons de neige -->
   <script>
@@ -123,6 +155,7 @@
       window.scrollTo(0, 0); // Défiler vers le haut après 5 secondes
     },1000);
   </script>
+  
 
 </body>
 </html>
